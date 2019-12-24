@@ -1,6 +1,9 @@
 plugins {
+    id 'base'
     id "com.moowork.node" version "1.2.0"
 }
+
+buildDir = 'dist'
 
 node {
     version = '12.5.0'
@@ -8,14 +11,20 @@ node {
     download = true
 }
 
-task run(type: YarnTask, dependsOn: 'yarn') {
-    group = 'application'
-    description = 'Run the app'
-    args = ['serve']
+yarn_run_build {
+    inputs.files '.env.development', '.env.production', 'babel.config.js', 'yarn.lock'
+    inputs.dir 'public'
+    inputs.dir 'src'
+
+    outputs.dir buildDir
 }
 
-task build(type: YarnTask, dependsOn: 'yarn') {
-    group = 'build'
-    description = 'Build the client bundle'
-    args = ['run', 'build']
+task run {
+    dependsOn yarn_run_serve
 }
+
+artifacts {
+    'default' file: buildDir, type: 'directory', builtBy: yarn_run_build
+}
+
+clean.delete << 'node_modules'
