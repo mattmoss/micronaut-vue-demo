@@ -4,8 +4,6 @@ plugins {
     id "application"
 }
 
-
-
 version "0.1"
 group "server"
 
@@ -51,11 +49,12 @@ dependencies {
 test.classpath += configurations.developmentOnly
 
 mainClassName = "server.Application"
+
 // use JUnit 5 platform
 test {
     useJUnitPlatform()
 }
-tasks.withType(JavaCompile){
+tasks.withType(JavaCompile) {
     options.encoding = "UTF-8"
     options.compilerArgs.add('-parameters')
 }
