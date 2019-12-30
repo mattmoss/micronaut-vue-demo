@@ -1,13 +1,13 @@
 plugins {
     id 'base'
-    id "com.moowork.node" version "1.2.0"
+    id 'com.github.node-gradle.node' version '2.2.0'
 }
 
 buildDir = 'dist'
 
 node {
     version = '12.5.0'
-    yarnVersion = '1.16.0'
+    yarnVersion = '1.21.1'
     download = true
 }
 
@@ -28,3 +28,4 @@ artifacts {
 }
 
 clean.delete << 'node_modules'
+
