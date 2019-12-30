@@ -1,4 +1,8 @@
 plugins {
+    // NOTE: net.ltgt-apt-eclipse generates deprecation warnings in Gradle 6.0,
+    // with deprecated behavior to be removed in Gradle 7.0. For more info, see:
+    //     https://github.com/gradle/gradle/issues/9314
+    //     https://github.com/gradle/gradle/issues/2300
     id "net.ltgt.apt-eclipse" version "0.21"
     id "com.github.johnrengelman.shadow" version "5.0.0"
     id "application"
@@ -38,10 +42,10 @@ dependencies {
     testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine"
 
     annotationProcessor 'io.micronaut.data:micronaut-data-processor:1.0.0.M5'
-    compile 'io.micronaut.data:micronaut-data-jdbc:1.0.0.M5'
+    implementation 'io.micronaut.data:micronaut-data-jdbc:1.0.0.M5'
     compileOnly 'jakarta.persistence:jakarta.persistence-api:2.2.2'
-    runtime 'io.micronaut.configuration:micronaut-jdbc-hikari'
-    runtime 'com.h2database:h2'
+    runtimeOnly 'io.micronaut.configuration:micronaut-jdbc-hikari'
+    runtimeOnly 'com.h2database:h2'
 
     publicResources project(':ui')
 }
@@ -71,3 +75,4 @@ shadowJar {
 
 run.classpath += configurations.developmentOnly
 run.jvmArgs('-noverify', '-XX:TieredStopAtLevel=1', '-Dcom.sun.management.jmxremote')
+
